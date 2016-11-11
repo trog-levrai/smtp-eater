@@ -1,7 +1,6 @@
-import os, subprocess, tempfile
+import os, subprocess, tempfile, asyncore
+from smtpListener import *
 
-with tempfile.NamedTemporaryFile(delete = False) as f:
-    f.write(b'default')
-    f.close()
-    cmd = os.environ.get('EDITOR', 'vi') + ' ' + f.name
-    subprocess.call(cmd, shell=True)
+server = SmtpListener(('127.0.0.1', 1025), None)
+
+asyncore.loop()
